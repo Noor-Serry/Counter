@@ -1,62 +1,100 @@
 package com.hamza.counter;
-
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-
-    TextView counter;
-    int i=0 , change=1;
-    int[]  color;
-    Random random;
-    int temp=0,index;
+    TextView countertextview;
+    int counter = 0,total,maxValue;
+    ListView itemView;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    ArrayList<String> array;
+    ArrayAdapter<String> arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        counter = findViewById(R.id.Counter);
-        random = new Random();
-        color = new int[5];
-        color[0] = Color.YELLOW;
-        color[1] = Color.BLUE;
-        color[2] = Color.WHITE;
-        color[3] = Color.RED;
-        color[4] = Color.GREEN;
-        counter.setTextColor(Color.WHITE);
+
+        countertextview = findViewById(R.id.counterTextview);
+        itemView=findViewById(R.id.ListView);
+        creatSharedPreferences();
+        creatEditor();
+        setItemInArray();
+        setArrayInListView();
+
+    }
+
+    public void increaseCounterInrelativeLayout(View view) {
+        counter++;
+        checkCounter();
+        countertextview.setText(String.valueOf(counter));
+    }
+
+    private void checkCounter() {
+        if (counter % 10 == 0)
+            countertextview.setTextColor(getRandomcolor());
+
+    }
+
+    private int getRandomcolor() {
+        int[] colors = {Color.BLUE, Color.RED, Color.YELLOW};
+        int random = new Random().nextInt(colors.length);
+        return colors[random];
     }
 
 
+    public void resetCounter(View view) {
+        counter = 0;
+        countertextview.setText(String.valueOf(counter));
+        countertextview.setTextColor(Color.BLACK);
+    }
+    public void creatSharedPreferences(){
+        sharedPreferences=getSharedPreferences("counterValue",MODE_PRIVATE);
+    }
+    public void creatEditor(){
+        editor=sharedPreferences.edit();
+    }
+    public void setItemInArray(){
+        array=new ArrayList<>();
+        array.add(String.valueOf(sharedPreferences.getInt("Total",0)));
+        array.add(String.valueOf(sharedPreferences.getInt("Max",0)));
+    }
+    public void setArrayInListView(){
+        arrayAdapter=new ArrayAdapter<String>(getBaseContext(),R.layout.support_simple_spinner_dropdown_item,array);
+        itemView.setAdapter(arrayAdapter);
+    }
 
-
-
-
-    public  void incres(View v){
-        counter.setText(++i +"");
-        if (i==change*10) {
-            index=random.nextInt(5);
-            while(index==temp){
-                index =random.nextInt(5);
-            }
-
-            colorChange();
+    @Override
+    protected void onStop() {
+        super.onStop();
+        setTotalVales();
+        setMaxValue();
+        editor.apply();
+    }
+    public void setTotalVales(){
+        editor.putInt("Total",sharedPreferences.getInt("Total",0)+counter);
+    }
+    public void setMaxValue(){
+        if(sharedPreferences.getInt("Max",0)<counter){
+            editor.putInt("Max",counter);
         }
     }
 
-    public void colorChange(){
-        counter.setTextColor(color[index]);
-        temp=index;
-        change++;
-    }
 
-    public void restart(View v){
-        i=0;change=1;
-        counter.setText(i +"");
-    }}
+
+
+
+}
