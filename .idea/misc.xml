@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Counter/app/src/main/res/layout/activity_main.xml" value="0.265625" />
+        <entry key="..\:/Counter/app/src/main/res/layout/activity_splash_screen.xml" value="0.176" />
+        <entry key="..\:/Counter/app/src/main/res/layout/text_for_list.xml" value="0.21041666666666667" />
+        <entry key="..\:/Counter/app/src/main/res/menu/menu_main.xml" value="0.26510416666666664" />
         <entry key="..\:/Users/Counter/app/src/main/res/drawable/background_bt.xml" value="0.1537037037037037" />
         <entry key="..\:/Users/Counter/app/src/main/res/drawable/press.xml" value="0.1537037037037037" />
         <entry key="..\:/Users/Counter/app/src/main/res/layout/activity_main.xml" value="0.15625" />

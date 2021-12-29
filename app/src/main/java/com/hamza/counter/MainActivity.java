@@ -2,12 +2,16 @@ package com.hamza.counter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -15,13 +19,12 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView countertextview;
-    int counter = 0,total,maxValue;
-    ListView itemView;
+    TextView countertextview,total,maxValue;
+    int counter = 0;
+
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    ArrayList<String> array;
-    ArrayAdapter<String> arrayAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +32,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         countertextview = findViewById(R.id.counterTextview);
-        itemView=findViewById(R.id.ListView);
+       total=findViewById(R.id.Total);
+       maxValue=findViewById(R.id.Max);
+
         creatSharedPreferences();
         creatEditor();
-        setItemInArray();
-        setArrayInListView();
+      setTotalInTextView();
+      setMaxValueInTextView();
+
 
     }
 
@@ -65,16 +71,48 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences=getSharedPreferences("counterValue",MODE_PRIVATE);
     }
     public void creatEditor(){
-        editor=sharedPreferences.edit();
+        editor = sharedPreferences.edit();
     }
-    public void setItemInArray(){
-        array=new ArrayList<>();
-        array.add(String.valueOf(sharedPreferences.getInt("Total",0)));
-        array.add(String.valueOf(sharedPreferences.getInt("Max",0)));
+   public void setTotalInTextView(){
+        int totalInFile = sharedPreferences.getInt("Total",0);
+        total.setText(getString(R.string.Total)+totalInFile);
+   }
+   public void setMaxValueInTextView(){
+        int maxInFile = sharedPreferences.getInt("Max",0);
+        maxValue.setText(getString(R.string.MaxValue)+maxInFile);
+
+   }
+public void inFlatMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        inFlatMenu(menu);
+        return super.onCreateOptionsMenu(menu);
     }
-    public void setArrayInListView(){
-        arrayAdapter=new ArrayAdapter<String>(getBaseContext(),R.layout.support_simple_spinner_dropdown_item,array);
-        itemView.setAdapter(arrayAdapter);
+public void deletTotal(){
+    editor.putInt("Total",0);
+    editor.apply();
+    setTotalInTextView();
+}
+public void deletMaxValue(){
+    editor.putInt("Max",0);
+    editor.apply();
+    setMaxValueInTextView();
+}
+public void selectSelectionFromMenu(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.deletTotal:
+                deletTotal();
+                Toast.makeText(getBaseContext(), getString(R.string.TotalDelet), Toast.LENGTH_SHORT).show();break;
+            case R.id.deletMax: deletMaxValue();
+                Toast.makeText(getBaseContext(), getString(R.string.MaxDelet), Toast.LENGTH_SHORT).show();
+        } }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        selectSelectionFromMenu(item);
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -91,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
         if(sharedPreferences.getInt("Max",0)<counter){
             editor.putInt("Max",counter);
         }
+
     }
 
 

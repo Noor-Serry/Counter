@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Counter</string>
-    <string name="_0">0</string>
-    <string name="reset">reset</string>
+    <string name="_0" translatable="false">0</string>
+    <string name="reset" translatable="false">reset</string>
     <string name="Reset">Reset</string>
-
-
+    <string name="Total">Total: </string>
+    <string name="MaxValue">MaxValue: </string>
+    <string name="DeletTotal">Delet Total</string>
+    <string name="DeletMax">Delet Max Value</string>
+    <string name="Welcome">welcome  in  counter app</string>
+    <string name="TotalDelet">Total Is Delet</string>
+    <string name="MaxDelet">Max Value Is Delet</string>
 </resources>

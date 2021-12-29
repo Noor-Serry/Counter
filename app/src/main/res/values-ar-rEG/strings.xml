@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" >عداد</string>
+    <string name="Reset" >إعادة تعيين</string>
+    <string name="Total" >المجموع الكلي:</string>
+    <string name="MaxValue">اكبر قيمه:</string>
+    <string name="DeletTotal">حذف المجموع الكلي </string>
+    <string name="DeletMax">حذف اكبر قيمه</string>
+    <string name="Welcome">مرحبا بك في تطبيق العداد</string>
+    <string name="TotalDelet">تم حذف المجموع الكلي</string>
+    <string name="MaxDelet">تم حذف اكبر قيمه</string>
+</resources>
