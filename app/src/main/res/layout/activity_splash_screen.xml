@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#B9D8D4"
     tools:context=".SplashScreen">
 
     <LinearLayout
@@ -20,7 +21,7 @@
             android:id="@+id/welcomView"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="50dp"
+            android:layout_margin="50dp"
             android:gravity="center"
             android:text="@string/Welcome"
             android:textColor="#120E0E"
@@ -28,12 +29,29 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieanimation"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/snowman"></com.airbnb.lottie.LottieAnimationView>
-
+            app:lottie_rawRes="@raw/sent"
+            android:layout_margin="10dp"
+            ></com.airbnb.lottie.LottieAnimationView>
+<!--        <com.airbnb.lottie.LottieAnimationView-->
+<!--            android:id="@+id/SuperMan"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            app:lottie_autoPlay="true"-->
+<!--            app:lottie_loop="true"-->
+<!--            android:layout_margin="10dp"></com.airbnb.lottie.LottieAnimationView>-->
+<ImageView
+    android:layout_width="match_parent"
+    android:id="@+id/message"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:layout_margin="10dp"
+    ></ImageView>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
